@@ -12,6 +12,7 @@
 		28F549351D8C9D990016151B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F549331D8C9D990016151B /* Main.storyboard */; };
 		28F549371D8C9D990016151B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28F549361D8C9D990016151B /* Assets.xcassets */; };
 		28F5493A1D8C9D990016151B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F549381D8C9D990016151B /* LaunchScreen.storyboard */; };
+		28F549441D8C9DBC0016151B /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F549431D8C9DBC0016151B /* CellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		28F549361D8C9D990016151B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28F549391D8C9D990016151B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28F5493B1D8C9D990016151B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28F549431D8C9DBC0016151B /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				28F5492F1D8C9D990016151B /* AppDelegate.swift */,
 				28F549311D8C9D990016151B /* ViewController.swift */,
 				28F549331D8C9D990016151B /* Main.storyboard */,
+				28F549431D8C9DBC0016151B /* CellView.swift */,
 				28F549361D8C9D990016151B /* Assets.xcassets */,
 				28F549381D8C9D990016151B /* LaunchScreen.storyboard */,
 				28F5493B1D8C9D990016151B /* Info.plist */,
@@ -138,6 +141,7 @@
 			files = (
 				28F549321D8C9D990016151B /* ViewController.swift in Sources */,
 				28F549301D8C9D990016151B /* AppDelegate.swift in Sources */,
+				28F549441D8C9DBC0016151B /* CellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +303,7 @@
 				28F549401D8C9D990016151B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

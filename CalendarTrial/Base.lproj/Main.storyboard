@@ -21,21 +21,21 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4SL-xd-8x2">
                                 <color key="backgroundColor" red="0.89282273140000001" green="0.83358818889999997" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="285" id="0b9-Js-LIb"/>
+                                    <constraint firstAttribute="height" constant="300" id="0b9-Js-LIb"/>
                                     <constraint firstAttribute="width" constant="343" id="7Fw-Cq-76F"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cqA-yx-hQt">
-                                    <size key="itemSize" width="40" height="50"/>
+                                    <size key="itemSize" width="40" height="40"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="hoM-FD-1d0">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
                                         <color key="backgroundColor" red="0.89411764709999997" green="0.83529411760000005" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,6 +62,9 @@
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="0.71095490149999996" green="0.64449740290000002" blue="0.82383087229999996" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nVl-r3-JJB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsB-ZA-82o">
                                 <frame key="frameInset" minX="16" minY="142" width="64" height="30"/>
@@ -70,8 +73,11 @@
                                 <state key="normal" title="Previous">
                                     <color key="titleColor" red="0.71095490153858132" green="0.64449740286077362" blue="0.82383087231562691" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="prevPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GwF-Jc-gFg"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sun.    Mon.    Tue.    Wed.    Thurs.    Fri.    Sat." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aob-mV-ixn">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sun.    Mon.    Tue.     Wed.  Thurs.    Fri.       Sat." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aob-mV-ixn">
                                 <frame key="frameInset" minX="16" minY="175" width="343" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.52549019610000003" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>

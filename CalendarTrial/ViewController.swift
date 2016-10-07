@@ -23,12 +23,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     var month: Int = 0
     var year: Int = 0
+    var day: Int = 0
+    var blocksPerMonth: Int = 0
+    var firstDayOfWeek: Int = 0
+    var firstWeekShift: Bool = true
     
     let daysPerWeek: Int = 7
     var currRow: Int = 0
     var monthIndex: Int = 0
     var daysCounter: Int = 0
     var initialLoad = true
+    var reload = true
     
     var daysPerMonth:[(month: String, days: Int)] = []
     
@@ -39,10 +44,35 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.calendarView.dataSource = self
         self.calendarView!.register(CellView.self, forCellWithReuseIdentifier: "cell")
         
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: currDate)
+        
+        reload = true
+        
+        print("\n\n\(weekDay)\n\n")
+        
         if(initialLoad)
         {
+            let unitFlags = Set<Calendar.Component>([.day, .month, .year])
+            
+            let components = Calendar.current.dateComponents(unitFlags, from: currDate)
+            dateFormatter.dateStyle = .short
+            day = components.day!
+            month = components.month!
+            year = components.year!
+            
             daysPerMonth.append(("January", 31))
-            daysPerMonth.append(("February", 28))
+            
+            if((year % 4 == 0) && !(year % 100 == 0) || (year % 400 == 0))
+            {
+                daysPerMonth.append(("February", 29))
+            }
+            else
+            {
+                daysPerMonth.append(("February", 28))
+            }
+            
+            
             daysPerMonth.append(("March", 31))
             daysPerMonth.append(("April", 30))
             daysPerMonth.append(("May", 31))
@@ -54,20 +84,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             daysPerMonth.append(("November", 30))
             daysPerMonth.append(("December", 31))
             
-            let unitFlags = Set<Calendar.Component>([.day, .month, .year])
-            
-            let components = Calendar.current.dateComponents(unitFlags, from: currDate)
-            dateFormatter.dateStyle = .short
-            month = components.month!
-            year = components.year!
             
             monthIndex = month - 1
             
             initialLoad = false
         }
         
-        
-        print("\n\n\n\n\n\n\n\(monthIndex)\n\n\n\n\n\n\n")
+        if(reload)
+        {
+            month = monthIndex + 1
+            
+            if((year % 4 == 0) && !(year % 100 == 0) || (year % 400 == 0))
+            {
+                daysPerMonth[1] = ("February", 29)
+            }
+            else
+            {
+                daysPerMonth[1] = ("February", 28)
+            }
+            
+            firstWeekShift = true
+            
+            let a = ((14-month)/12)
+            let y = year-a;
+            let m = month+12*a-2;
+            firstDayOfWeek = (1+y+y/4-y/100+y/400+31*m/12)%7
+            
+            calendarView.reloadData()
+            
+            reload = false
+        }
         
         monthLabel.text = "\(daysPerMonth[monthIndex].month) \(year)"
     }
@@ -81,12 +127,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int
     {
-        return daysPerMonth[monthIndex].days
+//        let dPM = daysPerMonth[monthIndex].days
+        let rows = 6//ceil((Double)(firstDayOfWeek+dPM)/7)
+        let blocks = rows*7
+        return Int(blocks)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
-        
         return 1
     }
     
@@ -95,12 +143,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     {
         let cell:CellView=collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CellView;
         
-        
-        
+
         currRow += 1;
+        
+        if(currRow >= 7)
+        {
+            firstWeekShift = false
+        }
+        
         if(currRow > 7)
         {
-            currRow = 1;
+            currRow = 1
         }
         
         if(currRow == 1 || currRow == 7)
@@ -112,32 +165,41 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.backgroundColor = backColor;
         }
         
-        cell.dayLabel.text = String(indexPath.row + 1)
+        if(!firstWeekShift)
+        {
+            cell.dayLabel.text = String(indexPath.row + 1 - firstDayOfWeek)
+            if(indexPath.row + 1 - firstDayOfWeek > daysPerMonth[monthIndex].days || indexPath.row + 1 - firstDayOfWeek <= 0)
+            {
+                cell.dayLabel.text = ""
+            }
+        }
+        
         
         return cell
     }
     
     @IBAction func nextPressed(_ sender: AnyObject)
     {
-        monthIndex += 1;
+        monthIndex += 1
         if(monthIndex > 11)
         {
             monthIndex = 0;
             year += 1;
         }
         
-        viewDidLoad();
+        viewDidLoad()
     }
     
     @IBAction func prevPressed(_ sender: AnyObject)
     {
-        monthIndex -= 1;
+        monthIndex -= 1
         if(monthIndex < 0)
         {
-            monthIndex = 11;
-            year -= 1;
+            monthIndex = 11
+            year -= 1
         }
-        viewDidLoad();
+        
+        viewDidLoad()
     }
     
     

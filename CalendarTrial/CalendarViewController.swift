@@ -297,7 +297,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
             {
                 if(indexPath.row == validCellArray[i])
                 {
-                    print("Segue")
                     self.performSegue(withIdentifier: "appSegue", sender: cell)
                     return
                 }

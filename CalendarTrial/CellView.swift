@@ -14,6 +14,11 @@ class CellView: UICollectionViewCell
     
     var viewHolder: UIView!
     
+    var day: Int!
+    var month: Int!
+    var year: Int!
+    
+    
     let txtColor = UIColor(red: (134/255.0), green: (144/255.0), blue: (255/255.0), alpha: 1)
     
     override init(frame: CGRect)

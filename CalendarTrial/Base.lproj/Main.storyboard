@@ -21,7 +21,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4SL-xd-8x2">
                                 <color key="backgroundColor" red="0.89282273140000001" green="0.83358818889999997" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="0b9-Js-LIb"/>
+                                    <constraint firstAttribute="height" constant="290" id="0b9-Js-LIb"/>
                                     <constraint firstAttribute="width" constant="343" id="7Fw-Cq-76F"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cqA-yx-hQt">

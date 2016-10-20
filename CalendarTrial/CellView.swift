@@ -1,8 +1,8 @@
 //
 //  CellView.swift
-//  CalendarTrial
+//  Salon Invoice Application
 //
-//  Created by Steven Hurtado on 9/16/16.
+//  Created by Steven Hurtado on 10/18/16.
 //  Copyright © 2016 Steven Hurtado. All rights reserved.
 //
 
@@ -14,9 +14,9 @@ class CellView: UICollectionViewCell
     
     var viewHolder: UIView!
     
-    var day: Int!
-    var month: Int!
-    var year: Int!
+    var day: String!
+    var month: String!
+    var year: String!
     
     
     let txtColor = UIColor(red: (134/255.0), green: (144/255.0), blue: (255/255.0), alpha: 1)

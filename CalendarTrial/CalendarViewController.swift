@@ -27,7 +27,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     let def = UserDefaults.standard
     var defArray         = [Int]()
     var defDate          = [String]()
-    var validCellArray   = [Int]()
     
     let backColor = UIColor(red: (228/255.0), green: (213/255.0), blue: (255/255.0), alpha: 0.5)
     let txtColor = UIColor(red: (134/255.0), green: (144/255.0), blue: (255/255.0), alpha: 0.2)
@@ -49,10 +48,13 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     var initialLoad = true
     var reload = true
     
-    var daysPerMonth:[(month: String, days: Int)] = []
+    //tuples
+    var daysPerMonth    :[(month: String, days: Int)] = []
     
-    var dateArray:[(day: Int, month: Int, year: Int)] = []
+    var dateArray       :[(day: Int, month: Int, year: Int)] = []
     
+    var validCellArray  :[(row: Int, month: String, day: String, year: String)] = []
+    var currentTuple    :(row: Int, month: String, day: String, year: String) = (0, "", "", "")
     //
     //  VIEW DID LOAD
     //
@@ -101,19 +103,17 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.calendarView.dataSource = self
         self.calendarView!.register(CellView.self, forCellWithReuseIdentifier: "cell")
         
-        let myCalendar = Calendar(identifier: .gregorian)
-        let weekDay = myCalendar.component(.weekday, from: currDate)
+//        let myCalendar = Calendar(identifier: .gregorian)
+//        let weekDay = myCalendar.component(.weekday, from: currDate)
         
         reload = true
-        
-        print("\n\n\(weekDay)\n\n")
         
         if(initialLoad)
         {
             let unitFlags = Set<Calendar.Component>([.day, .month, .year])
             
             let components = Calendar.current.dateComponents(unitFlags, from: currDate)
-            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = "MM/dd/YYYY, hh:mm a"
             day = components.day!
             month = components.month!
             year = components.year!
@@ -235,9 +235,23 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         if(!firstWeekShift)
         {
             cell.dayLabel.text = String(indexPath.row + 1 - firstDayOfWeek)
-            cell.day = indexPath.row + 1 - firstDayOfWeek
-            cell.month = month
-            cell.year = year
+            cell.day = String(indexPath.row + 1 - firstDayOfWeek)
+            cell.month = String(month)
+            cell.year = String(year)
+            
+            if(cell.day.characters.count % 2 != 0)
+            {
+                let temp = cell.day!
+                cell.day! = "0"
+                cell.day! += temp
+            }
+            
+            if(cell.month.characters.count % 2 != 0)
+            {
+                let temp = cell.month!
+                cell.month! = "0"
+                cell.month! += temp
+            }
             
             if(indexPath.row + 1 - firstDayOfWeek > daysPerMonth[monthIndex].days || indexPath.row + 1 - firstDayOfWeek <= 0)
             {
@@ -264,16 +278,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
                                 
                                 tempDate = tempDate.substring(to: parseIndex)
                                 
-                                var dayString = String(cell.day)
-                                if(dayString.characters.count == 1)
-                                {
-                                    dayString = "0\(dayString)"
-                                }
-                                
-                                if(tempDate == "\(cell.month!)/\(dayString)/\(cell.year!)")
+                                if(tempDate == "\(cell.month!)/\(cell.day!)/\(cell.year!)")
                                 {
                                     cell.backgroundColor = UIColor.cyan
-                                    validCellArray.append(indexPath.row)
+                                    validCellArray.append((indexPath.row, month: cell.month!, day: cell.day!, year: cell.year!))
                                     return cell
                                 }
                             }
@@ -288,16 +296,15 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        
-        let cell:CellView=collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CellView;
-        
         if(validCellArray.count > 0)
         {
             for i in (0...validCellArray.count-1)
             {
-                if(indexPath.row == validCellArray[i])
+                if(indexPath.row == validCellArray[i].row)
                 {
-                    self.performSegue(withIdentifier: "appSegue", sender: cell)
+                    
+                    currentTuple = validCellArray[i]
+                    self.performSegue(withIdentifier: "appSegue", sender: self)
                     return
                 }
             }
@@ -338,14 +345,12 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     {
         if(segue.identifier == "appSegue")
         {
-            let item : CellView = sender as! CellView
-            
             let viewController : AppointmentViewController = segue.destination as! AppointmentViewController
             viewController.marrClientData = self.marrClientData
             
-            viewController.month = item.month
-            viewController.day = item.day
-            viewController.year = item.year
+            viewController.month = currentTuple.month
+            viewController.day = currentTuple.day
+            viewController.year = currentTuple.year
         }
     }
     
